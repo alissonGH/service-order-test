@@ -106,4 +106,4 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 ```
-O serviço possui um pacote de configuração base para Kubernetes com os serviços utilizados e LoadBalancer, pois seria o cenário ideal para garantir o máximo de performance em uma entrega em ambiente produtivo.
+O serviço possui um pacote de configuração base para Kubernetes com os serviços utilizados e LoadBalancer, pois seria o cenário ideal para garantir o máximo de performance e confiabilidade em uma entrega em ambiente produtivo.
