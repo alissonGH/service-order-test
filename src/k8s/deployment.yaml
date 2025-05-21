@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-order
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: service-order
+  template:
+    metadata:
+      labels:
+        app: service-order
+    spec:
+      containers:
+        - name: service-order
+          image: service-order:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: "host.docker.internal:9092"
+            - name: SPRING_REDIS_HOST
+              value: "host.docker.internal"
+            - name: SPRING_REDIS_PORT
+              value: "6379"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://host.docker.internal:5432/orderdb"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "user"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "pass"
