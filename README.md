@@ -4,6 +4,20 @@
 
 Aplicação Spring Boot para gerenciamento de pedidos que recebe pedidos de um sistema externo, calcula o valor total dos produtos, armazena no banco de dados PostgreSQL, mantém cache em Redis e publica eventos no Kafka para sistemas downstream.
 
+## Regra base
+
+### Order
+A classe Order representa uma entidade de domínio no contexto de DDD (Domain-Driven Design). Ela encapsula regras e comportamentos relacionados ao conceito de pedido dentro do domínio da aplicação. Essa classe é o agregado raiz (Aggregate Root) de um agregado que inclui uma lista de produtos (Product), garantindo a consistência das invariantes do pedido como um todo.
+
+A classe também implementa comportamentos fundamentais do domínio:
+
+calculateTotal(): método que aplica uma regra de negócio de validação e cálculo do valor total do pedido, assegurando que nenhum produto tenha preço ou quantidade negativos.
+
+updateStatus(String): permite a mudança do status do pedido, respeitando o ciclo de vida da entidade.
+
+Através de suas operações e atributos, a entidade Order centraliza as decisões de negócio relacionadas a um pedido e é responsável por manter sua integridade, de acordo com os princípios do DDD. Isso promove um modelo rico de domínio, onde as regras e comportamentos estão próximos dos dados que manipulam, ao invés de serem dispersos em serviços externos.
+
+### OrderService
 A classe OrderService é responsável pela lógica de negócio relacionada ao processamento e recuperação de pedidos (Order). Ela atua integrando o banco de dados, o cache Redis e o sistema de mensageria Kafka para garantir o processamento eficiente e a persistência dos pedidos.
 
 O método processOrder(Order order) verifica se um pedido com o mesmo externalId já está presente no cache Redis. Caso esteja, registra essa informação no log e interrompe o processamento para evitar duplicidade. Caso contrário, o pedido é salvo no cache e enviado para um tópico Kafka, por meio do OrderProducer, para processamento assíncrono.
