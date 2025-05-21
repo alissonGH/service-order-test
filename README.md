@@ -40,7 +40,6 @@ Essa classe é fundamental para garantir a consistência dos dados, performance 
 - Redis (via Docker Compose)
 - Kafka + Zookeeper (via Docker Compose)
 - Docker Compose para orquestração local dos serviços externos
-- Kubernetes para deploy e balanceamento da aplicação Spring Boot
 - JUnit 5 + Mockito para testes unitários
 - Jackson para serialização/deserialização JSON
 - Lombok para redução de boilerplate
@@ -106,3 +105,5 @@ services:
       - "5432:5432"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+```
+O serviço possui um pacote de configuração base para Kubernetes com os serviços utilizados e LoadBalancer, pois seria o cenário ideal para garantir o máximo de performance em uma entrega em ambiente produtivo.
