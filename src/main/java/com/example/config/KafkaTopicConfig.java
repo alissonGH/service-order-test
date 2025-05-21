@@ -9,10 +9,17 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaTopicConfig {
 
     @Value("${topic.order}")
-    private String topicName;
+    private String orderTopic;
+    @Value("${topic.order-dlq}")
+    private String orderTopicDLQ;
 
     @Bean
     public NewTopic orderTopic() {
-        return new NewTopic(topicName, 3, (short) 1);
+        return new NewTopic(orderTopic, 3, (short) 1);
+    }
+
+    @Bean
+    public NewTopic orderTopicDLQ() {
+        return new NewTopic(orderTopicDLQ, 3, (short) 1);
     }
 }

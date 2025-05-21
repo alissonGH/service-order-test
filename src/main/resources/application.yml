@@ -36,3 +36,4 @@ spring:
 
 topic:
   order: order-topic
+  order-dlq: order-dlq

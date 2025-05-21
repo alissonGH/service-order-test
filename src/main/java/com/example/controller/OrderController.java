@@ -29,7 +29,11 @@ public class OrderController {
 
     @GetMapping("/{externalId}")
     public ResponseEntity<Order> getOrderByExternalId(@PathVariable String externalId) {
-        Order order = orderService.getOrderByExternalId(externalId);
-        return ResponseEntity.ok(order);
+        try {
+            Order order = orderService.getOrderByExternalId(externalId);
+            return ResponseEntity.ok(order);
+        } catch (Exception ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
